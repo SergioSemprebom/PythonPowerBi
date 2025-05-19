@@ -17,3 +17,53 @@ $ poetry env use "C:\Users\29414994823\AppData\Local\pypoetry\Cache\virtualenvs\
 
 Creating virtualenv pythonpowerbi-UFFD7zK5-py3.13 in C:\Users\29414994823\AppData\Local\pypoetry\Cache\virtualenvs
 Using virtualenv: C:\Users\29414994823\AppData\Local\pypoetry\Cache\virtualenvs\pythonpowerbi-UFFD7zK5-py3.13
+
+
+#####################################################################################################################
+
+#@title Importando a base em excel
+
+Produtos = "/content/drive/MyDrive/PythonPowerbi/Contoso - Cadastro Produtos.csv" #@param {type:"string"}
+Clientes = "/content/drive/MyDrive/PythonPowerbi/Contoso - Clientes.csv" #@param {type:"string"}
+Lojas = "/content/drive/MyDrive/PythonPowerbi/Contoso - Lojas.csv" #@param {type:"string"}
+Promocoes = "/content/drive/MyDrive/PythonPowerbi/Contoso - Promocoes.csv" #@param {type:"string"}
+Vendas= "/content/drive/MyDrive/PythonPowerbi/Contoso - Vendas - 2017.csv" #@param {type:"string"}
+
+#@title Lendo as bases .csv
+produtos_df = pd.read_csv(Produtos, sep=';', decimal=',', encoding='latin-1') #@param {type:"string"}
+clientes_df = pd.read_csv(Clientes, sep=';', decimal=',', encoding='latin-1') #@param {type:"string"}
+lojas_df = pd.read_csv(Lojas, sep=';', decimal=',', encoding='latin-1') #@param {type:"string"}
+promocoes_df = pd.read_csv(Promocoes, sep=';', decimal=',', encoding='latin-1') #@param {type:"string"}
+vendas_df = pd.read_csv(Vendas, sep=';', decimal=',', encoding='latin-1') #@param {type:"string"}
+
+
+
+#Código para o PythonPowerbi
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+
+caminho_padrao = 'G:\Meu Drive\PythonPowerbi'
+
+produtos_df =  pd.read_csv(os.path.join(caminho_padrao, 'Contoso - Cadastro Produtos.csv'),sep=';' ,decimal=',', encoding='latin-1')
+lojas_df =     pd.read_csv(os.path.join(caminho_padrao, 'Contoso - Lojas.csv')            ,sep=';' ,decimal=',', encoding='latin-1')
+clientes_df =  pd.read_csv(os.path.join(caminho_padrao, 'Contoso - Clientes.csv')         ,sep=';' ,decimal=',', encoding='latin-1')
+promocoes_df = pd.read_csv(os.path.join(caminho_padrao, 'Contoso - Promocoes.csv')        ,sep=';' ,decimal=',', encoding='latin-1')
+vendas_df =    pd.read_csv(os.path.join(caminho_padrao, 'Contoso - Vendas - 2017.csv')    ,sep=';' ,decimal=',', encoding='latin-1')
+
+clientes_df = clientes_df.rename(columns={'ÿID Cliente': 'ID Cliente'})
+produtos_df = produtos_df.rename(columns={'ÿNome da Marca' : 'Nome da Marca'})
+lojas_df = lojas_df.rename(columns={'ÿID Loja': 'ID Loja'})
+
+
+clientes_df = clientes_df[['ID Cliente', 'E-mail']]
+produtos_df = produtos_df[['ID Produto', 'Nome da Marca']]
+lojas_df = lojas_df[['ID Loja', 'Nome da Loja']]
+
+
+vendas_df = vendas_df.merge(produtos_df, on='ID Produto')
+vendas_df = vendas_df.merge(lojas_df, on='ID Loja')
+vendas_df =vendas_df.merge(clientes_df, on='ID Cliente').rename(columns={'E-mail': 'E-mail do Cliente'})
