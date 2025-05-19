@@ -1,0 +1,19 @@
+TESTE_01
+import pandas as pd
+vendas = pd.read_csv(r'/content/drive/MyDrive/PythonPowerbi/Contoso - Vendas - 2017.csv',sep=';')
+
+TESTE_02
+import pandas as pd
+vendas = pd.read_csv(/g/Meu Drive/PythonPowerbi/Contoso - Vendas - 2017.csv',sep=';')
+
+# TESTE_03
+import pandas as pd
+vendas = pd.read_csv(r'G:\Meu Drive\PythonPowerbi\Contoso - Vendas - 2017.csv',sep=';')
+
+
+
+# Execução do comando
+$ poetry env use "C:\Users\29414994823\AppData\Local\pypoetry\Cache\virtualenvs\pythonpowerbi-9wjbAkc5-py3.13\Scripts\python.exe"
+
+Creating virtualenv pythonpowerbi-UFFD7zK5-py3.13 in C:\Users\29414994823\AppData\Local\pypoetry\Cache\virtualenvs
+Using virtualenv: C:\Users\29414994823\AppData\Local\pypoetry\Cache\virtualenvs\pythonpowerbi-UFFD7zK5-py3.13
